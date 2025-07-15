@@ -24,7 +24,9 @@ Living with a condition like UC means juggling meds, symptoms, diet tweaks, slee
 | **Insight layer** | Daily and 30-day dashboards, deviation alerts | Doctors get signal not noise |
 | **Exports** | FHIR JSON and PDF with charts | Drop-in for any EMR |
 | **Privacy guardrails** | On-device encryption, zero analytics by default | HIPAA-friendly foundation |
-
+| **Doctor messaging** | Auto-draft & send FHIR message through MyChart | Eliminates portal friction, preserves context |
+| **Crowd insights** | On-device chort builder -> anonymised stats and inisightful trends | Users see evidence-based patterns without privacy leak |
+| **Enhaced PUCAI** | Granular symptom capture, auto-calculates standard PUCAI plus extra metrics | Doctors keep familiar index while getting richer view |
 ---
 
 ## Roadmap
@@ -34,9 +36,11 @@ Living with a condition like UC means juggling meds, symptoms, diet tweaks, slee
 | **0 – Bootstrap** | Public repo skeleton | README, Contributing, MIT License |
 | **1 – Local CLI** | Proven data model + basic stats | Rust or Python CLI, unit tests, CSV / JSON store |
 | **2 – Edge AI** | On-device trigger detection | Llama-2-7B-Q4 quant run, CrewAI wrapper, benchmark battery draw |
-| **3 – Mobile Alpha** | iOS + Android prototype | React Native UI, secure storage, local notifications |
+| **2.5 – Spike detection** | Trend engine + PUCAI module | Bayesian baseline modeller; unit tests |
+| **3 – iOS MVP** | Full capture → PDF flow | SwiftUI UI, Core ML quant-7B, local PDF export |
+| **3.5 – MyChart pilot** | Secure portal messaging | OAuth2 flow, Epic sandbox certification |
 | **4 – Pilot Study** | Real-world feedback | 10 UC patients, one GI clinic, iterate on UX |
-| **5 – Ecosystem** | Integrations + research | Apple Health sync, FHIR bridge, academic poster |
+| **5 – Anonymised cohort stats** | Opt-in aggregate insights | On-device k-anonymity check, cloud count store |
 
 ---
 
@@ -73,18 +77,6 @@ graph TD
   F -->|Counts only| G[Anonymised Cloud Cohort Stats]
 ```
 
-## Implementation plan (current status: **ideation 🧠**)
-
-- [ ] **Performance spike** – Compare vLLM vs. llamafile on M-series.  
-- [ ] **Schema draft** – Symptoms, meds, meals, notes, vitals.  
-- [ ] **CLI prototype** – CRUD commands with pytest coverage.  
-- [ ] **Inference POC** – Detect missed doses from synthetic logs.  
-- [ ] **iOS MVP** – Swift + Core ML wrapper for quantised 7-B model; local-notifications.  
-- [ ] **Web dashboard (later)** – Next.js + tRPC reading from encrypted export files.  
-- [ ] **Mobile wireframes** – Low-fi Figma screens.  
-
----
-
 ---
 
 ## Contributing
@@ -100,10 +92,4 @@ graph TD
 
 Released under the [MIT License](LICENSE). You own your contributions; we credit every contributor.
 
----
 
-## Repo-name candidates
-
-`chroncurrency` | `uc-edge-agent` | `symptom-pilot`
-
-*Pick one when you create the Git repo – the README works with any slug.*
