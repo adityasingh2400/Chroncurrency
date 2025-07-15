@@ -68,13 +68,13 @@ graph TD
 
 ```mermaid
 graph TD
-  A[Quick-tap / Voice / MC-Q Input] --> B[Local Store (Vault)]
-  B --> C[Trend Engine 🔍]
-  C -->|Spike detected| D[Doctor Packet Builder]
-  D -->|FHIR or PDF| E[MyChart / Email Export]
+    A["Quick-tap / Voice / MC-Q input"] --> B["Local Store<br/>(Vault)"]
+    B --> C["Trend Engine"]
+    C -- "Spike detected" --> D["Doctor Packet Builder"]
+    D -- "FHIR or PDF" --> E["MyChart / Email Export"]
 
-  B --> F[Aggregated Analytics (Opt-in)]
-  F -->|Counts only| G[Anonymised Cloud Cohort Stats]
+    B --> F["Aggregated Analytics<br/>(Opt-in)"]
+    F -- "Counts only" --> G["Anonymised Cloud Cohort Stats"]
 ```
 
 ---
