@@ -32,16 +32,16 @@
 ```mermaid
 graph TD
   subgraph Device
-    A[Voice / Text / Photo]
-    B[ChronCurrency Core<br>(Rust/Python)]
-    C[Edge LLM<br>Quantized model]
-    D[Encrypted Vault]
+    A["Voice / Text / Photo"]
+    B["ChronCurrency Core<br/>(Rust/Python)"]
+    C["Edge LLM<br/>Quantized Model"]
+    D["Encrypted Vault"]
   end
+
   A --> B
   B --> C
   C --> B
   B --> D
-```
 
 ## 🔧 Implementation Plan (current status: **ideation 🧠**)
 
