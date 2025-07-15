@@ -33,8 +33,8 @@
 graph TD
   subgraph Device
     A[Voice / Text / Photo]
-    B[FlareWatch Core<br>(Rust/Python)]
-    C[Edge LLM<br>Quantised model]
+    B[ChronCurrency Core<br>(Rust/Python)]
+    C[Edge LLM<br>Quantized model]
     D[Encrypted Vault]
   end
   A --> B
@@ -42,3 +42,39 @@ graph TD
   C --> B
   B --> D
 ```
+
+## 🔧 Implementation Plan (current status: **ideation 🧠**)
+
+- [ ] **Tech spike** — benchmark vLLM vs. llamafile on Mac M-series.  
+- [ ] **Data model draft** — schema for symptoms, meds, meals, notes.  
+- [ ] **CLI prototype** — CRUD commands with local tests (pytest).  
+- [ ] **Edge inference POC** — detect “missed dose” from synthetic logs.  
+- [ ] **Mobile UI storyboard** — low-fidelity Figma screens.
+
+---
+
+## 🤝 Contributing
+
+All help is welcome—even if you just file an issue describing your pain points.
+
+1. **Star** the repo to follow progress.  
+2. **Open an issue** tagged `idea` or `bug`.  
+3. **Fork & PR** – follow our commit style (`feat:`, `fix:`, `docs:`).  
+4. 📣 **Community call** every first Friday (Discord link coming soon).
+
+---
+
+## 📜 License
+
+[MIT](LICENSE) – you own your contributions; we credit every contributor.
+
+---
+
+## 🗺️ Repo Name Ideas
+
+* `chroncurrency`  (default)  
+* `uc-edge-agent`  
+* `symptompilot`
+
+> **Pick one when you create the GitHub repo—README works with any slug.**
+
