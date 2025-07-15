@@ -1,80 +1,96 @@
-# Chroncurrency 🩺📲  
-**Edge-first symptom & medication copilot for UC and other chronic-illness warriors**
+# ChronCurrency 🩺📲
+**Edge-first copilot for ulcerative colitis and other chronic-condition warriors**
 
-> *“Track once, forget forever.”*  
-> A privacy-preserving, on-device agent that slashes the daily admin of living with chronic conditions.
-
----
-
-## 🌟 Vision
-
-1. **Zero-friction logging** – voice, photo, or quick-tap entries recorded **offline** in < 3 seconds.  
-2. **Smart insights** – edge-LLM surfaces flare triggers and missed meds *without* cloud latency or sharing PHI.  
-3. **Actionable nudges** – reminders come *only* when they matter (e.g., “pack Budesonide before 8 AM class”).  
-4. **Plug-and-play privacy** – all data lives on your phone / laptop; export is opt-in and end-to-end encrypted.  
+> _Track once, forget forever – and keep every byte on your own device._
 
 ---
 
-## 🛣️ Roadmap (high-level)
+## Why this project?
+Living with a condition like UC means juggling meds, symptoms, diet tweaks, sleep hygiene and endless doctor updates. Most tracking apps are cloud-first, clunky, and still leave patients doing the heavy lifting. **ChronCurrency flips that script:**
 
-| Phase | Goal | Key Deliverables |
-|-------|------|------------------|
-| **0 – Bootstrap** | Public repo & community scaffolding | This README · CONTRIBUTING.md · MIT LICENSE |
-| **1 – MVP CLI** | Local CSV/JSON logger + basic stats | Rust/Python CLI · simple charts · unit tests |
-| **2 – Edge AI** | On-device LLM trigger detection | Llama 2-7B quantized · CrewAI plugin wrapper |
-| **3 – Mobile App** | iOS & Android UI (+ watchOS later) | React Native UI · secure storage · local notifications |
-| **4 – Ecosystem** | Integrations & research collabs | Apple Health export · FHIR bridge · academic paper |
+* **Local AI, zero stigma** – All analysis runs on your phone or laptop, so no personal-health info leaves the device unless you say so.  
+* **One-tap logging** – Voice, quick-emoji tap, or camera barcode scan in under three seconds. No more spreadsheet guilt.  
+* **Doctor-ready briefs** – Clear trend lines and bullet-point summaries you can export as encrypted PDF / FHIR and drop straight into the visit.  
+* **Actionable nudges** – Only the reminders that matter (“pack Budesonide before 8 AM class”). Silence the rest.  
 
 ---
 
-## 🏗️ Planned Architecture
+## Key features (MVP scope)
+
+| Category | What it does | Why it matters |
+| -------- | ------------ | -------------- |
+| **Logging** | Voice dictation, lock-screen widgets, pill-bottle OCR | Removes friction so you actually log every event |
+| **Local AI** | Quantised 7-B LLM spots flare triggers, missed doses, sleep correlation | Fast, works offline, private |
+| **Insight layer** | Daily and 30-day dashboards, deviation alerts | Doctors get signal not noise |
+| **Exports** | FHIR JSON and PDF with charts | Drop-in for any EMR |
+| **Privacy guardrails** | On-device encryption, zero analytics by default | HIPAA-friendly foundation |
+
+---
+
+## Roadmap
+
+| Phase | Goal | Milestones |
+| ----- | ---- | ---------- |
+| **0 – Bootstrap** | Public repo skeleton | README, Contributing, MIT License |
+| **1 – Local CLI** | Proven data model + basic stats | Rust or Python CLI, unit tests, CSV / JSON store |
+| **2 – Edge AI** | On-device trigger detection | Llama-2-7B-Q4 quant run, CrewAI wrapper, benchmark battery draw |
+| **3 – Mobile Alpha** | iOS + Android prototype | React Native UI, secure storage, local notifications |
+| **4 – Pilot Study** | Real-world feedback | 10 UC patients, one GI clinic, iterate on UX |
+| **5 – Ecosystem** | Integrations + research | Apple Health sync, FHIR bridge, academic poster |
+
+---
+
+## High-level architecture
 
 ```mermaid
 graph TD
   subgraph Device
-    A["Voice / Text / Photo"]
-    B["ChronCurrency Core<br/>(Rust/Python)"]
-    C["Edge LLM<br/>Quantized Model"]
-    D["Encrypted Vault"]
+    Input["Voice • Text • Photo • Sensor"]
+    Core["ChronCurrency Core\n(Rust / Python)"]
+    Model["Edge LLM\nQuantised 7-B"]
+    Vault["Encrypted Vault"]
+    Export["PDF & FHIR Export"]
   end
 
-  A --> B
-  B --> C
-  C --> B
-  B --> D
+  Input --> Core
+  Core  --> Model
+  Model --> Core
+  Core  --> Vault
+  Core  --> Export
 ```
-## 🔧 Implementation Plan (current status: **ideation 🧠**)
+---
 
-- [ ] **Tech spike** — benchmark vLLM vs. llamafile on Mac M-series.  
-- [ ] **Data model draft** — schema for symptoms, meds, meals, notes.  
-- [ ] **CLI prototype** — CRUD commands with local tests (pytest).  
-- [ ] **Edge inference POC** — detect “missed dose” from synthetic logs.  
-- [ ] **Mobile UI storyboard** — low-fidelity Figma screens.
+## Implementation plan (current status: **ideation 🧠**)
+
+- [ ] **Performance spike** – Compare vLLM vs. llamafile on M-series.  
+- [ ] **Schema draft** – Symptoms, meds, meals, notes, vitals.  
+- [ ] **CLI prototype** – CRUD commands with pytest coverage.  
+- [ ] **Inference POC** – Detect missed doses from synthetic logs.  
+- [ ] **iOS MVP** – Swift + Core ML wrapper for quantised 7-B model; local-notifications.  
+- [ ] **Web dashboard (later)** – Next.js + tRPC reading from encrypted export files.  
+- [ ] **Mobile wireframes** – Low-fi Figma screens.  
 
 ---
 
-## 🤝 Contributing
+---
 
-All help is welcome—even if you just file an issue describing your pain points.
+## Contributing
 
 1. **Star** the repo to follow progress.  
-2. **Open an issue** tagged `idea` or `bug`.  
-3. **Fork & PR** – follow our commit style (`feat:`, `fix:`, `docs:`).  
-4. 📣 **Community call** every first Friday (Discord link coming soon).
+2. **Open an issue** labelled `idea` or `bug`.  
+3. **Fork & PR** – follow conventional-commit prefixes (`feat:`, `fix:`, `docs:`).  
+4. **Join the chat** – Discord link coming with the first release.  
 
 ---
 
-## 📜 License
+## License
 
-[MIT](LICENSE) – you own your contributions; we credit every contributor.
+Released under the [MIT License](LICENSE). You own your contributions; we credit every contributor.
 
 ---
 
-## 🗺️ Repo Name Ideas
+## Repo-name candidates
 
-* `chroncurrency`  (default)  
-* `uc-edge-agent`  
-* `symptompilot`
+`chroncurrency` | `uc-edge-agent` | `symptom-pilot`
 
-> **Pick one when you create the GitHub repo—README works with any slug.**
-
+*Pick one when you create the Git repo – the README works with any slug.*
