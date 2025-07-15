@@ -42,7 +42,7 @@ graph TD
   B --> C
   C --> B
   B --> D
-
+```
 ## 🔧 Implementation Plan (current status: **ideation 🧠**)
 
 - [ ] **Tech spike** — benchmark vLLM vs. llamafile on Mac M-series.  
