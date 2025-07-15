@@ -60,6 +60,19 @@ graph TD
 ```
 ---
 
+## 🧭 User flow
+
+```mermaid
+graph TD
+  A[Quick-tap / Voice / MC-Q Input] --> B[Local Store (Vault)]
+  B --> C[Trend Engine 🔍]
+  C -->|Spike detected| D[Doctor Packet Builder]
+  D -->|FHIR or PDF| E[MyChart / Email Export]
+
+  B --> F[Aggregated Analytics (Opt-in)]
+  F -->|Counts only| G[Anonymised Cloud Cohort Stats]
+```
+
 ## Implementation plan (current status: **ideation 🧠**)
 
 - [ ] **Performance spike** – Compare vLLM vs. llamafile on M-series.  
