@@ -45,27 +45,27 @@ At its core, the app lets you capture every UC-related event—pain spikes, meds
 ## High-level architecture
 
 ```mermaid
-   graph TD
+  graph TD
     %% ────────── DEVICE ──────────
-    subgraph Device
-        Input["Voice / Tap / Camera"] --> Vault["Local&nbsp;Vault"]
-        Vault --> Engine["Trend + Suggestion&nbsp;Engine"]
-        Engine --> PDF["Doctor&nbsp;Packet&nbsp;PDF"]
+    subgraph "Device"
+        Input["Voice / Tap / Camera"] --> Vault["Local Vault"]
+        Vault --> Engine["Trend + Suggestion Engine"]
+        Engine --> PDF["Doctor Packet PDF"]
         PDF --> Doctor["MyChart / Email"]
     end
 
     %% ────────── CLOUD (CONSENT-BASED) ──────────
-    subgraph Cloud&nbsp;(consent-based)
-        Anon["Aggregated&nbsp;Anonymised&nbsp;Data"]
-        Research["UC&nbsp;Research&nbsp;Corpus"]
-        Insight["Community&nbsp;Insight&nbsp;Service"]
+    subgraph "Cloud (consent-based)"
+        Anon["Aggregated Anonymised Data"]
+        Research["UC Research Corpus"]
+        Insight["Community Insight Service"]
     end
 
     %% ────────── DATA FLOWS ──────────
-    Vault -- "anonymised metrics (opt-in)" --> Anon
+    Vault --|anonymised metrics (opt-in)|--> Anon
     Anon --> Insight
     Research --> Insight
-    Insight -- "pattern updates" --> Engine
+    Insight --|pattern updates|--> Engine
 
 ```
 ---
@@ -91,15 +91,15 @@ graph TD
 ```
 
 ### Tech Stack 
+
 ```mermaid
-%% Tech-stack overview
 graph TD
     %% ──────────── iOS / DEVICE ────────────
-    subgraph iOS&nbsp;Device
+    subgraph "iOS Device"
         UI["SwiftUI<br/>(iOS app)"]
         Persistence["SwiftData + SQLCipher"]
         AI["Core ML / MLC<br/>On-device models"]
-        Alerts["Combine + async/await<br/>Background tasks"]
+        Alerts["Combine + async/await"]
         PDF["PDFKit"]
         Telemetry["Sentry SDK"]
     end
@@ -113,25 +113,25 @@ graph TD
     Telemetry --> SentryCloud
 
     %% ──────────── CLOUD / BACK END ────────────
-    subgraph Cloud&nbsp;(AWS serverless)
+    subgraph "Cloud (AWS serverless)"
         DoctorBridge["FastAPI Lambda<br/>FHIR / MyChart bridge"]
         AggregatorAPI["FastAPI Lambda<br/>Crowd aggregator"]
         Dynamo["DynamoDB"]
-        Insights["Community + Literature<br/>Insight service"]
+        Insights["Insight service<br/>(community + literature)"]
         SentryCloud["Sentry Cloud"]
     end
 
     PDF --> DoctorBridge
+    Persistence --|anonymised metrics|--> AggregatorAPI
     AggregatorAPI --> Dynamo
     Dynamo --> Insights
-    Insights --> DoctorBridge            %% for evidence links
-    Persistence -- "anonymised metrics" --> AggregatorAPI
+    Insights --> DoctorBridge
 
-    %% ──────────── TRAINING PIPELINE ────────────
-    subgraph Model&nbsp;Training
-        Scraper["Reddit + PubMed<br/>Data pipeline"]
-        Train["PyTorch Lightning<br/>Training"]
-        Convert["coremltools<br/>Export → Core ML"]
+    %% ──────────── MODEL TRAINING ────────────
+    subgraph "Model Training"
+        Scraper["Reddit + PubMed pipeline"]
+        Train["PyTorch Lightning"]
+        Convert["coremltools export"]
     end
 
     Scraper --> Train
@@ -139,16 +139,16 @@ graph TD
     Convert --> AI
 
     %% ──────────── WEB DASHBOARD ────────────
-    subgraph Web&nbsp;Dashboard
-        WebApp["Next.js 14 + tRPC<br/>(Read-only charts)"]
+    subgraph "Web Dashboard"
+        WebApp["Next.js + tRPC<br/>(read-only charts)"]
     end
 
     WebApp --> Insights
 
     %% ──────────── CI / CD ────────────
-    subgraph CI&nbsp;/ CD
+    subgraph "CI / CD"
         GH["GitHub Actions"]
-        Fastlane["Fastlane<br/>(iOS builds)"]
+        Fastlane["Fastlane (iOS builds)"]
         SLF["Serverless Framework<br/>(Lambda deploy)"]
         TestFlight["TestFlight"]
     end
@@ -159,6 +159,7 @@ graph TD
     SLF --> DoctorBridge
     SLF --> AggregatorAPI
 ```
+
 ---
 
 ## Other Stuff
