@@ -1,17 +1,14 @@
-//
-//  ChroncurrencyApp.swift
-//  Chroncurrency
-//
-//  Created by Aditya Singh on 7/19/25.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct ChroncurrencyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TimelineScreen()
+                // default container is fine for now; no custom PRAGMA needed
+                .modelContainer(for: LogEntry.self)
         }
     }
 }
+
