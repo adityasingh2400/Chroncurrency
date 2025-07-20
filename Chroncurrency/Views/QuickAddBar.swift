@@ -1,4 +1,4 @@
-import SwiftUI
+/*import SwiftUI
 
 struct QuickAddBar: View {
     let store: LogStore
@@ -14,25 +14,26 @@ struct QuickAddBar: View {
                     .font(.title2)
             }
 
-            // preset chips
+            //Dealign with user interactions with logging
             ForEach(LogEntry.Kind.allCases, id: \.self) { kind in
                 Button {
-                    // short-tap = quick entry
-                    store.quickAdd(kind, value: defaultLabel(for: kind))
+                    if kind == .stool {
+                        // stool now requires details → open the sheet
+                        wantsStoolSheet = true
+                    } else {
+                        // all other kinds keep the instant-add behavior
+                        store.quickAdd(kind, value: defaultLabel(for: kind))
+                    }
                 } label: {
                     Image(systemName: icon(for: kind))
                         .font(.title2)
                         .padding(10)
                         .background(
-                            Circle()
-                                .fill(Color.gray.opacity(0.15))
+                            Circle().fill(Color.gray.opacity(0.15))
                         )
                 }
-                // Long-press only on Stool → open detail sheet
-                .onLongPressGesture(minimumDuration: 0.4) {
-                    if kind == .stool { wantsStoolSheet = true }
-                }
             }
+
 
             Spacer()
         }
@@ -60,4 +61,4 @@ private func icon(for kind: LogEntry.Kind) -> String {
     case .note:      return "note.text"
     }
 }
-
+*/

@@ -16,9 +16,9 @@ struct TimelineScreen: View {
         NavigationStack {
             VStack {
                 if store != nil {
-                    QuickAddBar(store: store,
-                                isAdding: $isAdding,
-                                wantsStoolSheet: $wantsStool)
+                    QuickAddCircle(store: store,
+                                   isAdding: $isAdding,
+                                   wantsStoolSheet: $wantsStool)
 
                     // preview last-5 or full list
                     List {
@@ -32,7 +32,7 @@ struct TimelineScreen: View {
                                     }
                                 }
                         }
-
+                        //To show all or collapse all logged things.
                         if needsToggle {
                             Button(showAll ? "Collapse" : "Show all") {
                                 withAnimation { showAll.toggle() }
@@ -43,7 +43,7 @@ struct TimelineScreen: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("Timeline")
+            .navigationTitle("Home")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(role: .destructive) {
@@ -53,6 +53,7 @@ struct TimelineScreen: View {
                     }
                 }
             }
+            //Delete Button
             .alert("Delete all logs?",
                    isPresented: $showConfirm) {
                 Button("Delete", role: .destructive) { store.deleteAll() }
@@ -65,10 +66,12 @@ struct TimelineScreen: View {
                 AddEntrySheet(store: store, helper: dictHelper)
                     .presentationDetents([.medium])
             }
-            .sheet(isPresented: $wantsStool) {
+
+            //Fullscreen view for stool
+            .fullScreenCover(isPresented: $wantsStool) {
                 StoolDetailSheet(store: store)
-                    .presentationDetents([.medium])
             }
+
             .onAppear { store = LogStore(context: ctx) }
             .animation(.default, value: store?.todayLogs)
         }
@@ -80,5 +83,40 @@ struct TimelineScreen: View {
         guard let logs = store?.todayLogs else { return [] }
         return needsToggle && !showAll ? Array(logs.prefix(5)) : logs
     }
+    // MARK: – Row view for each log entry
+    private struct TimelineRow: View {
+        let entry: LogEntry
+
+        /// Re-use one formatter for perf
+        private static let timeFmt: DateFormatter = {
+            let f = DateFormatter()
+            f.timeStyle = .short
+            return f
+        }()
+
+        var body: some View {
+            HStack {
+                Image(systemName: icon(for: entry.kind))
+                    .foregroundStyle(.tint)
+                VStack(alignment: .leading) {
+                    Text(entry.value).bold()
+                    Text(Self.timeFmt.string(from: entry.timestamp))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+
+        private func icon(for kind: LogEntry.Kind) -> String {
+            switch kind {
+            case .symptom:    return "bolt.heart"
+            case .medication: return "pills.fill"
+            case .meal:       return "fork.knife"
+            case .stool:      return "drop.triangle"
+            case .note:       return "note.text"
+            }
+        }
+    }
+
 }
 
