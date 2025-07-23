@@ -12,6 +12,7 @@ struct QuickAddCircle: View {
     let store: LogStore
     @Binding var isAdding: Bool          // “+” sheet trigger
     @Binding var wantsStoolSheet: Bool   // stool details trigger
+    @Binding var wantsPainSheet: Bool //PainSheet
 
     private let kinds = LogEntry.Kind.allCases
     private let radius: CGFloat = 120    // circle size
@@ -47,13 +48,15 @@ struct QuickAddCircle: View {
                             .multilineTextAlignment(.center)
 
                         Button {
-                            if kind == .stool {
+                            switch kind {
+                            case .stool:
                                 wantsStoolSheet = true
-                            } else {
-                                store.quickAdd(kind,
-                                               value: defaultValue(for: kind))
+                            case .symptom:                      // ← Pain
+                                wantsPainSheet = true
+                            default:
+                                store.quickAdd(kind, value: defaultValue(for: kind))
                             }
-                        } label: {
+                        }label: {
                             Image(systemName: icon(for: kind))
                                 .resizable()
                                 .scaledToFit()
@@ -81,7 +84,7 @@ struct QuickAddCircle: View {
     private func defaultValue(for kind: LogEntry.Kind) -> String {
         switch kind {
         case .symptom:   "Pain"
-        case .medication:"Mesalamine"
+        case .medication:"Medication Logged!"
         case .meal:      "Meal"
         case .stool:     "Stool"
         case .note:      "Note"

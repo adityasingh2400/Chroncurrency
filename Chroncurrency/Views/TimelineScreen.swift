@@ -11,6 +11,8 @@ struct TimelineScreen: View {
     @State private var wantsStool   = false
     @State private var dictHelper   = DictationHelper()
     @State private var showConfirm  = false     // delete-all alert
+    @State private var wantsPain  = false   // NEW
+
 
     var body: some View {
         NavigationStack {
@@ -18,7 +20,8 @@ struct TimelineScreen: View {
                 if store != nil {
                     QuickAddCircle(store: store,
                                    isAdding: $isAdding,
-                                   wantsStoolSheet: $wantsStool)
+                                   wantsStoolSheet: $wantsStool,
+                                   wantsPainSheet: $wantsPain)
 
                     // preview last-5 or full list
                     List {
@@ -70,6 +73,10 @@ struct TimelineScreen: View {
             //Fullscreen view for stool
             .fullScreenCover(isPresented: $wantsStool) {
                 StoolDetailSheet(store: store)
+            }
+            //Full screen view for pain
+            .fullScreenCover(isPresented: $wantsPain) {
+                PainDetailSheet(store: store)
             }
 
             .onAppear { store = LogStore(context: ctx) }
